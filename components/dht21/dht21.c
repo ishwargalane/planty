@@ -4,11 +4,19 @@
 #include <freertos/task.h>
 #include <esp_log.h>
 
-#define NUM_READINGS 10
+#define NUM_READINGS 12
 static float g_temperature = DEFAULT_TEMPERATURE;
 static float g_humidity = DEFAULT_HUMIDITY;
 
 static const char *TAG = "DHT_SENSOR";
+float get_average_temperature(void)
+{
+    return g_temperature;
+}
+float get_average_humidity(void)
+{
+    return g_humidity;
+}
 
 void set_average_temperature_humidity(void *pvParameters)
 {
@@ -33,7 +41,7 @@ void set_average_temperature_humidity(void *pvParameters)
             
         // If you read the sensor data too often, it will heat up
         // http://www.kandrsmith.org/RJS/Misc/Hygrometers/dht_sht_how_fast.html
-        vTaskDelay(2000 / portTICK_PERIOD_MS);
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
 
         }
         g_temperature = total_temperature / NUM_READINGS;
