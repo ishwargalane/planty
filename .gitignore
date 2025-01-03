@@ -1,0 +1,42 @@
+# Compiled object files
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+*.def
+*.exp
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# ESP RainMaker build directories
+build/
+#sdkconfig
+sdkconfig.old
+
+# IDF specific files
+*.bin
+*.elf
+*.map
+*.log
+
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
