@@ -1,4 +1,18 @@
 dependencies:
+  dht21:
+    dependencies:
+    - git: https://github.com/UncleRus/esp-idf-lib.git
+      name: espressif/dht
+      path: components/dht
+      version: 0.9.4
+    - git: https://github.com/UncleRus/esp-idf-lib.git
+      name: espressif/esp_idf_lib_helpers
+      path: components/esp_idf_lib_helpers
+      version: 0.9.4
+    source:
+      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/dht21
+      type: local
+    version: '*'
   espressif/cbor:
     component_hash: 440f4ee4504841cc9b4f3a8ef755776a612ac9dace355514c68b999868f990ff
     dependencies:
@@ -9,6 +23,14 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 0.6.0~1
+  espressif/dht:
+    component_hash: cd03877b11b895c7d2e6c2549276586a71d1fd0c83ddc6e1c6618c5758820987
+    dependencies: []
+    source:
+      git: https://github.com/UncleRus/esp-idf-lib.git
+      path: components/dht
+      type: git
+    version: e8fff9a2d638ce08716b69fa66382bbfa0bfffdf
   espressif/esp-serial-flasher:
     component_hash: dcc42a16712a1a636509cf0bf90e14032d7f2141784b533613b267b6aa318d52
     dependencies: []
@@ -35,6 +57,14 @@ dependencies:
       path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_diagnostics
       type: local
     version: 1.2.0
+  espressif/esp_idf_lib_helpers:
+    component_hash: 05fde869e4a2c9efcded9b544fb31d418d98ae3c31e265a7d155462d97744464
+    dependencies: []
+    source:
+      git: https://github.com/UncleRus/esp-idf-lib.git
+      path: components/esp_idf_lib_helpers
+      type: git
+    version: e8fff9a2d638ce08716b69fa66382bbfa0bfffdf
   espressif/esp_insights:
     dependencies:
     - name: idf
@@ -176,9 +206,12 @@ dependencies:
       type: local
     version: 1.1.0
 direct_dependencies:
+- dht21
 - espressif/cbor
+- espressif/dht
 - espressif/esp_diag_data_store
 - espressif/esp_diagnostics
+- espressif/esp_idf_lib_helpers
 - espressif/esp_insights
 - espressif/esp_rainmaker
 - espressif/esp_rcp_update
@@ -191,6 +224,6 @@ direct_dependencies:
 - espressif/network_provisioning
 - espressif/rmaker_common
 - idf
-manifest_hash: 31b1a2d335851dc24747ba7d72d1b3fe3167c43f0929d82ea433dc4eb07065b8
+manifest_hash: 907f411f53b935fcea0e4eb4882c908b6241341c1642972c667d669f2a45f027
 target: esp32
 version: 2.0.0

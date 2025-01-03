@@ -1,0 +1,3 @@
+dependencies:
+  dht21:
+    path: ../components/dht21

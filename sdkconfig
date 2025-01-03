@@ -481,6 +481,16 @@ CONFIG_APP_WIFI_PROV_COMPAT=y
 # end of ESP RainMaker App Wi-Fi Provisioning
 
 #
+# DHT configuration
+#
+# CONFIG_DHT_TYPE_DHT11 is not set
+CONFIG_DHT_TYPE_AM2301=y
+# CONFIG_DHT_TYPE_SI7021 is not set
+CONFIG_DHT_DATA_GPIO=17
+# CONFIG_DHT_INTERNAL_PULLUP is not set
+# end of DHT configuration
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEBUG=y

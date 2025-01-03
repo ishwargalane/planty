@@ -17,6 +17,8 @@
 #include <ws2812_led.h>
 #include "app_priv.h"
 
+#include "dht21.h"
+
 /* This is the button that is used for toggling the power */
 #define BUTTON_GPIO          CONFIG_EXAMPLE_BOARD_BUTTON_GPIO
 #define BUTTON_ACTIVE_LEVEL  0
@@ -51,27 +53,9 @@ static void push_btn_cb(void *arg)
 {
     bool new_state = !g_power_state;
     app_driver_set_state(new_state);
-#ifdef CONFIG_EXAMPLE_ENABLE_TEST_NOTIFICATIONS
-    /* This snippet has been added just to demonstrate how the APIs esp_rmaker_param_update_and_notify()
-     * and esp_rmaker_raise_alert() can be used to trigger push notifications on the phone apps.
-     * Normally, there should not be a need to use these APIs for such simple operations. Please check
-     * API documentation for details.
-     */
-    if (new_state) {
-        esp_rmaker_param_update_and_notify(
-                esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
-                esp_rmaker_bool(new_state));
-    } else {
-        esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
-                esp_rmaker_bool(new_state));
-        esp_rmaker_raise_alert("Switch was turned off");
-    }
-#else
     esp_rmaker_param_update_and_report(
             esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
             esp_rmaker_bool(new_state));
-#endif
 }
 
 static void set_power_state(bool target)
@@ -99,6 +83,9 @@ void app_driver_init()
     /* Configure the GPIO */
     gpio_config(&io_conf);
     app_indicator_init();
+
+    /* Init the temperature and humidity sensor */
+    xTaskCreate(set_average_temperature_humidity, "set_average_temperature_humidity", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
 }
 
 int IRAM_ATTR app_driver_set_state(bool state)

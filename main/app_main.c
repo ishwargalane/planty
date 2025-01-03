@@ -14,7 +14,7 @@
 #include <esp_log.h>
 #include <esp_event.h>
 #include <nvs_flash.h>
-
+#include <dht.h>
 #include <esp_rmaker_core.h>
 #include <esp_rmaker_standard_types.h>
 #include <esp_rmaker_standard_params.h>

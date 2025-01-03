@@ -1,0 +1,9 @@
+dependencies:
+  espressif/dht:
+    version: "0.9.4"
+    git: https://github.com/UncleRus/esp-idf-lib.git
+    path: components/dht
+  espressif/esp_idf_lib_helpers:
+    version: "0.9.4"
+    git: https://github.com/UncleRus/esp-idf-lib.git
+    path: components/esp_idf_lib_helpers
