@@ -12,6 +12,8 @@
 
 #define DEFAULT_TEMPERATURE         25.0
 #define DEFAULT_HUMIDITY            50.0
-
+#define REPORTING_PERIOD            60
 
 void set_average_temperature_humidity(void *pvParameters);
+float get_average_temperature(void);
+float get_average_humidity(void);

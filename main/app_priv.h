@@ -18,3 +18,8 @@ extern esp_rmaker_device_t *humidity_sensor_device;
 void app_driver_init(void);
 int app_driver_set_state(bool state);
 bool app_driver_get_state(void);
+
+/*
+float get_average_temperature();
+float get_average_humidity();
+*/
