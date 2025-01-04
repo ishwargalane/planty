@@ -46,6 +46,6 @@ void set_average_temperature_humidity(void *pvParameters)
         }
         g_temperature = total_temperature / NUM_READINGS;
         g_humidity = total_humidity / NUM_READINGS;
-        ESP_LOGI(TAG, "Humidity: %.1f%% Temp: %.1fC\n", g_humidity, g_temperature);
+        ESP_LOGI(TAG, "Humidity: %.1f%% Temp: %.1fC\n", get_average_humidity(), get_average_temperature());
     }
 }
