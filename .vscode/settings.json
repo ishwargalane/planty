@@ -4,5 +4,8 @@
         "target/esp32.cfg"
     ],
     "idf.flashType": "UART",
-    "idf.port": "/dev/tty.usbserial-0001"
+    "idf.port": "/dev/tty.usbserial-0001",
+    "files.associations": {
+        "app_priv.h": "c"
+    }
 }
