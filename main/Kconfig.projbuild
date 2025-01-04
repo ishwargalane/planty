@@ -1,6 +1,6 @@
-menu "Example Configuration"
+menu "EPS32 Configuration"
 
-    config EXAMPLE_BOARD_BUTTON_GPIO
+    config ESP32_BOARD_BUTTON_GPIO
         int "Boot Button GPIO"
         default 9 if IDF_TARGET_ESP32C3 || IDF_TARGET_ESP32C6 || IDF_TARGET_ESP32C2
         default 0
@@ -8,7 +8,7 @@ menu "Example Configuration"
             GPIO number on which the "Boot" button is connected. This is generally used
             by the application for custom operations like toggling states, resetting to defaults, etc.
 
-    config EXAMPLE_ENABLE_TEST_NOTIFICATIONS
+    config ESP32_ENABLE_TEST_NOTIFICATIONS
         bool "Test Notifications"
         default n
         help
@@ -16,7 +16,7 @@ menu "Example Configuration"
             push button will trigger a parameter notification {"Switch":{"Power":true}} and turning off will
             trigger an alert "Switch was turned off".
 
-    config EXAMPLE_OUTPUT_GPIO
+    config ESP32_OUTPUT_GPIO
         int "Output GPIO"
         default 19
         help

@@ -22,11 +22,11 @@
 #include "dht21.h"
 
 /* This is the button that is used for toggling the power */
-#define BUTTON_GPIO          CONFIG_EXAMPLE_BOARD_BUTTON_GPIO
+#define BUTTON_GPIO          CONFIG_ESP32_BOARD_BUTTON_GPIO
 #define BUTTON_ACTIVE_LEVEL  0
 
 /* This is the GPIO on which the power will be set */
-#define OUTPUT_GPIO    CONFIG_EXAMPLE_OUTPUT_GPIO
+#define OUTPUT_GPIO    CONFIG_ESP32_OUTPUT_GPIO
 static bool g_power_state = DEFAULT_POWER;
 
 /* These values correspoind to H,S,V = 120,100,10 */
@@ -69,6 +69,23 @@ static void set_power_state(bool target)
     gpio_set_level(OUTPUT_GPIO, target);
     app_indicator_set(target);
 }
+
+void turnOffSwitchAfterSetInterval(void *pvParameters)
+{
+    while (1)
+    {
+        if (app_driver_get_state())
+        {   
+            vTaskDelay(10000 / portTICK_PERIOD_MS);    
+            app_driver_set_state(false);
+            esp_rmaker_param_update_and_report(
+                esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
+                esp_rmaker_bool(false));
+        }
+        vTaskDelay(5000 / portTICK_PERIOD_MS);
+    }
+}
+
 
 /* temperature and humidity sensor */
 static void update_temperature_sensor_data(TimerHandle_t handle)
@@ -134,8 +151,10 @@ void app_driver_init()
     temperature_sensor_init();
     humidity_sensor_init();
     xTaskCreate(set_average_temperature_humidity, "set_average_temperature_humidity", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
+    xTaskCreate(turnOffSwitchAfterSetInterval, "turnOffSwitchAfterSetInterval", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
     
 }
+
 
 int IRAM_ATTR app_driver_set_state(bool state)
 {

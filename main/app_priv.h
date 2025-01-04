@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#define DEFAULT_POWER  true
+#define DEFAULT_POWER  false
 extern esp_rmaker_device_t *switch_device;
 extern esp_rmaker_device_t *temp_sensor_device;
 extern esp_rmaker_device_t *humidity_sensor_device;

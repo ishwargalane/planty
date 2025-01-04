@@ -387,12 +387,12 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# Example Configuration
+# EPS32 Configuration
 #
-CONFIG_EXAMPLE_BOARD_BUTTON_GPIO=0
-# CONFIG_EXAMPLE_ENABLE_TEST_NOTIFICATIONS is not set
-CONFIG_EXAMPLE_OUTPUT_GPIO=19
-# end of Example Configuration
+CONFIG_ESP32_BOARD_BUTTON_GPIO=0
+# CONFIG_ESP32_ENABLE_TEST_NOTIFICATIONS is not set
+CONFIG_ESP32_OUTPUT_GPIO=19
+# end of EPS32 Configuration
 
 #
 # ESP RainMaker Config
