@@ -11,11 +11,11 @@ static float g_humidity = DEFAULT_HUMIDITY;
 static const char *TAG = "DHT_SENSOR";
 float get_average_temperature(void)
 {
-    return g_temperature;
+    return (int)(g_temperature + 0.5);
 }
 float get_average_humidity(void)
 {
-    return g_humidity;
+    return (int)(g_humidity + 0.5);
 }
 
 void set_average_temperature_humidity(void *pvParameters)
@@ -46,6 +46,6 @@ void set_average_temperature_humidity(void *pvParameters)
         }
         g_temperature = total_temperature / NUM_READINGS;
         g_humidity = total_humidity / NUM_READINGS;
-        ESP_LOGI(TAG, "Humidity: %.1f%% Temp: %.1fC\n", g_humidity, g_temperature);
+        ESP_LOGI(TAG, "Humidity: %.1f%% Temp: %.1fC\n", get_average_humidity(), get_average_temperature());
     }
 }

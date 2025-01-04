@@ -70,6 +70,7 @@ static void set_power_state(bool target)
     app_indicator_set(target);
 }
 
+/* temperature and humidity sensor */
 static void update_temperature_sensor_data(TimerHandle_t handle)
 {
     ESP_LOGI(TAG, "Updating Temp: %.1fC\n", get_average_temperature());
@@ -85,7 +86,6 @@ static void update_humidity_sensor_data(TimerHandle_t handle)
                 esp_rmaker_device_get_param_by_type(humidity_sensor_device, ESP_RMAKER_PARAM_TEMPERATURE),
                 esp_rmaker_float(get_average_humidity()));
 }
-
 
 esp_err_t temperature_sensor_init(void)
 {
@@ -108,6 +108,7 @@ esp_err_t humidity_sensor_init(void)
     }
     return ESP_FAIL;
 }
+/* temperature and humidity sensor - END */
 
 void app_driver_init()
 {
