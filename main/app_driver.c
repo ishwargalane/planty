@@ -24,6 +24,7 @@
 /* This is the button that is used for toggling the power */
 #define BUTTON_GPIO          CONFIG_ESP32_BOARD_BUTTON_GPIO
 #define BUTTON_ACTIVE_LEVEL  0
+#define BUTTON_SWITCH_OFF_INTERVAL  CONFIG_ESP32_BOARD_BUTTON_GPIO_SWITCH_OFF_INTERVAL
 
 /* This is the GPIO on which the power will be set */
 #define OUTPUT_GPIO    CONFIG_ESP32_OUTPUT_GPIO
@@ -37,8 +38,6 @@ static bool g_power_state = DEFAULT_POWER;
 #define WIFI_RESET_BUTTON_TIMEOUT       3
 #define FACTORY_RESET_BUTTON_TIMEOUT    10
 
-static TimerHandle_t t_sensor_timer;
-static TimerHandle_t h_sensor_timer;
 static const char *TAG = "ESP-RMAKER-SENSOR";
 
 static void app_indicator_set(bool state)
@@ -70,6 +69,24 @@ static void set_power_state(bool target)
     app_indicator_set(target);
 }
 
+int IRAM_ATTR app_driver_set_state(bool state)
+{
+    if(g_power_state != state) {
+        g_power_state = state;
+        set_power_state(g_power_state);
+    }
+    return ESP_OK;
+}
+
+bool app_driver_get_state(void)
+{
+    return g_power_state;
+}
+
+/* 
+This is to switch off the water supply after a set interval. The interval is set to 10 seconds.
+This is to avoid the water supply being on for a long time.
+*/
 void turnOffSwitchAfterSetInterval(void *pvParameters)
 {
     while (1)
@@ -81,51 +98,11 @@ void turnOffSwitchAfterSetInterval(void *pvParameters)
             esp_rmaker_param_update_and_report(
                 esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
                 esp_rmaker_bool(false));
+            ESP_LOGI(TAG, "Switch turned off after set interval of %d seconds", BUTTON_SWITCH_OFF_INTERVAL);
         }
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
 }
-
-
-/* temperature and humidity sensor */
-static void update_temperature_sensor_data(TimerHandle_t handle)
-{
-    ESP_LOGI(TAG, "Updating Temp: %.1fC\n", get_average_temperature());
-    esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_type(temp_sensor_device, ESP_RMAKER_PARAM_TEMPERATURE),
-                esp_rmaker_float(get_average_temperature()));
-}
-
-static void update_humidity_sensor_data(TimerHandle_t handle)
-{
-    ESP_LOGI(TAG, "Updating Humidity: %.1f%%\n", get_average_humidity());
-    esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_type(humidity_sensor_device, ESP_RMAKER_PARAM_TEMPERATURE),
-                esp_rmaker_float(get_average_humidity()));
-}
-
-esp_err_t temperature_sensor_init(void)
-{
-    t_sensor_timer = xTimerCreate("update_temperature_sensor_data", (REPORTING_PERIOD * 1000) / portTICK_PERIOD_MS,
-                            pdTRUE, NULL, update_temperature_sensor_data);
-    if (t_sensor_timer) {
-        xTimerStart(t_sensor_timer, 0);
-        return ESP_OK;
-    }
-    return ESP_FAIL;
-}
-
-esp_err_t humidity_sensor_init(void)
-{
-    h_sensor_timer = xTimerCreate("update_humidity_sensor_data", (REPORTING_PERIOD * 1000) / portTICK_PERIOD_MS,
-                            pdTRUE, NULL, update_humidity_sensor_data);
-    if (h_sensor_timer) {
-        xTimerStart(h_sensor_timer, 0);
-        return ESP_OK;
-    }
-    return ESP_FAIL;
-}
-/* temperature and humidity sensor - END */
 
 void app_driver_init()
 {
@@ -150,22 +127,9 @@ void app_driver_init()
     /* Init the temperature and humidity sensor */
     temperature_sensor_init();
     humidity_sensor_init();
+    /* Create a task to set the average temperature and humidity */
     xTaskCreate(set_average_temperature_humidity, "set_average_temperature_humidity", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
+    /* Create a task to turn off the switch after a set interval */
     xTaskCreate(turnOffSwitchAfterSetInterval, "turnOffSwitchAfterSetInterval", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
-    
-}
 
-
-int IRAM_ATTR app_driver_set_state(bool state)
-{
-    if(g_power_state != state) {
-        g_power_state = state;
-        set_power_state(g_power_state);
-    }
-    return ESP_OK;
-}
-
-bool app_driver_get_state(void)
-{
-    return g_power_state;
 }

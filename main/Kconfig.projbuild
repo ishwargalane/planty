@@ -8,6 +8,13 @@ menu "EPS32 Configuration"
             GPIO number on which the "Boot" button is connected. This is generally used
             by the application for custom operations like toggling states, resetting to defaults, etc.
 
+    config ESP32_BOARD_BUTTON_GPIO_SWITCH_OFF_INTERVAL
+        int "Switch Off Interval"
+        default 10
+        help
+            This is the time interval in seconds after which the switch will be turned off automatically.
+            This is useful in case the switch is turned on accidentally and the user forgets to turn it off.
+
     config ESP32_ENABLE_TEST_NOTIFICATIONS
         bool "Test Notifications"
         default n
