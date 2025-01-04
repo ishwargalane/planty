@@ -1,4 +1,10 @@
 dependencies:
+  csms_v2:
+    dependencies: []
+    source:
+      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/csms_v2
+      type: local
+    version: '*'
   dht21:
     dependencies:
     - git: https://github.com/UncleRus/esp-idf-lib.git
@@ -206,6 +212,7 @@ dependencies:
       type: local
     version: 1.1.0
 direct_dependencies:
+- csms_v2
 - dht21
 - espressif/cbor
 - espressif/dht
@@ -224,6 +231,6 @@ direct_dependencies:
 - espressif/network_provisioning
 - espressif/rmaker_common
 - idf
-manifest_hash: 907f411f53b935fcea0e4eb4882c908b6241341c1642972c667d669f2a45f027
+manifest_hash: 0856fc22c499577a4ee5362d8355f3e1c9a99554eccc08a4fa72cffb47acb5f6
 target: esp32
 version: 2.0.0

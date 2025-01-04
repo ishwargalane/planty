@@ -1,3 +1,5 @@
 dependencies:
   dht21:
     path: ../components/dht21
+  csms_v2:
+    path: ../components/csms_v2

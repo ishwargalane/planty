@@ -20,6 +20,7 @@
 #include "app_priv.h"
 
 #include "dht21.h"
+#include "csms_v2.h"
 
 /* This is the button that is used for toggling the power */
 #define BUTTON_GPIO          CONFIG_ESP32_BOARD_BUTTON_GPIO
@@ -131,5 +132,8 @@ void app_driver_init()
     xTaskCreate(set_average_temperature_humidity, "set_average_temperature_humidity", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
     /* Create a task to turn off the switch after a set interval */
     xTaskCreate(turnOffSwitchAfterSetInterval, "turnOffSwitchAfterSetInterval", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
-
+    /* Create a task to set the soil moisture data */
+    xTaskCreate(set_average_soil_moisture_data, "set_average_soil_moisture_data", 4096, NULL, 5, NULL);
+    /* Create a task to display the soil moisture data */
+    xTaskCreate(display_average_soil_moisture_data, "display_average_soil_moisture_data", 4096, NULL, 5, NULL);
 }
