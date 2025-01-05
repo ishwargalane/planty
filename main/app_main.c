@@ -221,7 +221,7 @@ void app_main()
     esp_rmaker_node_add_device(node, switch_device);
 
     /* Create a Temperature Sensor device and add the relevant parameters to it */
-    temp_sensor_device = esp_rmaker_temp_sensor_device_create("Temperature Sensor", NULL, get_average_temperature());
+    temp_sensor_device = esp_rmaker_temp_sensor_device_create("Temperature/Humidty", NULL, get_average_temperature());
     esp_rmaker_param_t *h_param = esp_rmaker_param_create("Humidity", ESP_RMAKER_PARAM_TEMPERATURE, 
         esp_rmaker_float(get_average_humidity()), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
     esp_rmaker_device_add_param( temp_sensor_device, h_param);
