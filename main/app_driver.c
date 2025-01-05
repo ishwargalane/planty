@@ -127,7 +127,6 @@ void app_driver_init()
     
     /* Init the temperature and humidity sensor */
     temperature_sensor_init();
-    humidity_sensor_init();
     /* Create a task to set the average temperature and humidity */
     xTaskCreate(set_average_temperature_humidity, "set_average_temperature_humidity", configMINIMAL_STACK_SIZE * 3, NULL, 5, NULL);
     /* Create a task to turn off the switch after a set interval */
