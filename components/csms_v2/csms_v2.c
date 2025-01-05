@@ -70,7 +70,7 @@ void set_average_soil_moisture_data(void *pvParameters)
             int voltage_sum = 0;
             for (int i = 0; i < SAMPLE_COUNT; i++) {
                 select_mux_channel(channel);
-                vTaskDelay(50 / portTICK_PERIOD_MS); // wait for the mux to settle
+                vTaskDelay(100 / portTICK_PERIOD_MS); // wait for the mux to settle
                 ESP_ERROR_CHECK(adc_oneshot_read(adc1_handle, EXAMPLE_ADC1_CHAN0, &adc_raw[channel]));
                 adc_sum += adc_raw[channel];
                 if (do_calibration1_chan0) {
@@ -87,7 +87,7 @@ void set_average_soil_moisture_data(void *pvParameters)
             vTaskDelay(100 / portTICK_PERIOD_MS); // interval between readings
         }
 
-        vTaskDelay(1000 / portTICK_PERIOD_MS); // interval between cycles
+        vTaskDelay(10000 / portTICK_PERIOD_MS); // interval between cycles
     }
 
     //Tear Down

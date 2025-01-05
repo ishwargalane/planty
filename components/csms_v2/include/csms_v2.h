@@ -18,10 +18,10 @@
 #define EXAMPLE_ADC1_CHAN0          ADC_CHANNEL_0
 #define EXAMPLE_ADC_ATTEN           ADC_ATTEN_DB_12
 
-#define SAMPLE_COUNT    10             // Number of samples for smoothing
-#define NUM_CHANNELS    16             // Number of channels on the multiplexer
-#define OUTLIER_THRESHOLD 500          // Define the acceptable deviation threshold
-#define CSMSV2_REPORTING_PERIOD            60
+#define SAMPLE_COUNT            20      // Number of samples for smoothing
+#define NUM_CHANNELS            5       // Number of channels on the multiplexer
+#define OUTLIER_THRESHOLD       500     // Define the acceptable deviation threshold
+#define CSMSV2_REPORTING_PERIOD 300     // Reporting period in seconds
 
 void set_average_soil_moisture_data(void *pvParameters);
 void display_average_soil_moisture_data(void *pvParameters);
