@@ -39,6 +39,10 @@ esp_rmaker_device_t *temp_sensor_device;
 //esp_rmaker_device_t *soil_moisture_sensor_device;
 soil_monitor_t soil_monitor;
 
+soil_monitor_t* get_soil_monitor() {
+    return &soil_monitor;
+}
+
 /* Callback to handle commands received from the RainMaker cloud */
 static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
             const esp_rmaker_param_val_t val, void *priv_data, esp_rmaker_write_ctx_t *ctx)

@@ -32,3 +32,4 @@ bool app_driver_get_state(void);
 esp_err_t temperature_sensor_init(void);
 esp_err_t soil_moisture_sensor_init(void);
 void add_soil_moisture_params(soil_monitor_t *soil_monitor);
+soil_monitor_t* get_soil_monitor();
