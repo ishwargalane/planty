@@ -6,6 +6,7 @@
     "idf.flashType": "UART",
     "idf.port": "/dev/tty.usbserial-0001",
     "files.associations": {
-        "app_priv.h": "c"
+        "app_priv.h": "c",
+        "adc_oneshot.h": "c"
     }
 }

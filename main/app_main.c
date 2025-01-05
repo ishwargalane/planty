@@ -35,7 +35,6 @@
 static const char *TAG = "app_main";
 esp_rmaker_device_t *switch_device;
 esp_rmaker_device_t *temp_sensor_device;
-esp_rmaker_device_t *humidity_sensor_device;
 
 /* Callback to handle commands received from the RainMaker cloud */
 static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
@@ -222,12 +221,11 @@ void app_main()
     esp_rmaker_node_add_device(node, switch_device);
 
     /* Create a Temperature Sensor device and add the relevant parameters to it */
-    temp_sensor_device = esp_rmaker_temp_sensor_device_create("Temperature Sensor", NULL, get_average_temperature());
+    temp_sensor_device = esp_rmaker_temp_sensor_device_create("Temperature/Humidty", NULL, get_average_temperature());
+    esp_rmaker_param_t *h_param = esp_rmaker_param_create("Humidity", ESP_RMAKER_PARAM_TEMPERATURE, 
+        esp_rmaker_float(get_average_humidity()), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
+    esp_rmaker_device_add_param( temp_sensor_device, h_param);
     esp_rmaker_node_add_device(node, temp_sensor_device);
-
-    /* Create a Humidity Sensor device and add the relevant parameters to it */
-    humidity_sensor_device = esp_rmaker_temp_sensor_device_create("Humidity Sensor", NULL, get_average_humidity());
-    esp_rmaker_node_add_device(node, humidity_sensor_device);
 
     /* Enable OTA */
     esp_rmaker_ota_enable_default();

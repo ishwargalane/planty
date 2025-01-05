@@ -14,12 +14,10 @@
 #define DEFAULT_POWER  false
 extern esp_rmaker_device_t *switch_device;
 extern esp_rmaker_device_t *temp_sensor_device;
-extern esp_rmaker_device_t *humidity_sensor_device;
-
 
 void app_driver_init(void);
 int app_driver_set_state(bool state);
 bool app_driver_get_state(void);
 
 esp_err_t temperature_sensor_init(void);
-esp_err_t humidity_sensor_init(void);
+esp_err_t soil_moisture_sensor_init(void);
