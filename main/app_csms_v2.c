@@ -11,6 +11,32 @@
 static const char *TAG = "CSMC_V2_SENSOR";
 static TimerHandle_t s_sensor_timer;
 
+#define PARAM_NAME_PREFIX "Plant_"
+
+// Sensor value range definitions
+#define SENSOR_MAX_RAW 2500  // 0% moisture
+#define SENSOR_MIN_RAW 500   // 100% moisture
+
+
+static float moisture_values[NUM_CHANNELS];
+
+// function to create/add a soil moisture sensor device parameter to the device
+void add_soil_moisture_params(soil_monitor_t* soil_monitor)
+{
+    for(int i = 0; i < NUM_CHANNELS; i++) {
+        char param_name[32];
+        snprintf(param_name, sizeof(param_name), "%s%d", PARAM_NAME_PREFIX, i);
+        esp_rmaker_param_t *moisture_param = esp_rmaker_param_create(param_name, ESP_RMAKER_PARAM_SOIL_MOISTURE, 
+            esp_rmaker_int(10), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
+        if (moisture_param) {
+            esp_rmaker_param_add_ui_type(moisture_param, ESP_RMAKER_UI_SLIDER);
+            esp_rmaker_param_add_bounds(moisture_param, esp_rmaker_int(0), esp_rmaker_int(100), esp_rmaker_int(1));
+            esp_rmaker_device_add_param(soil_monitor->device, moisture_param);
+            soil_monitor->moisture_params[i] = moisture_param;
+        }
+    }
+}   
+
 /* soil moisture sensor */
 static void update_soil_moisture_sensor_data(TimerHandle_t handle)
 {

@@ -31,11 +31,13 @@
 
 #include "app_priv.h"
 #include "dht21.h"
+#include "csms_v2.h"
 
 static const char *TAG = "app_main";
 esp_rmaker_device_t *switch_device;
 esp_rmaker_device_t *temp_sensor_device;
-esp_rmaker_device_t *soil_moisture_sensor_device;
+//esp_rmaker_device_t *soil_moisture_sensor_device;
+soil_monitor_t soil_monitor;
 
 /* Callback to handle commands received from the RainMaker cloud */
 static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
@@ -230,21 +232,17 @@ void app_main()
 
     /* Create a Soil Moisture Sensor device and add the relevant parameters to it */
     // Create a generic device to acomodate the soil moisture sensor readings with multiple parameters
-    soil_moisture_sensor_device = esp_rmaker_device_create("Soil Moisture Sensor", ESP_RMAKER_DEVICE_SOIL_MOISTURE, NULL);
-    esp_rmaker_device_add_cb(soil_moisture_sensor_device, write_cb, NULL);
-    // Add the standard parameter to read soil moisture with satutation slider UI type 
-    esp_rmaker_param_t *soil_moisture_param = esp_rmaker_param_create("Soil Moisture", ESP_RMAKER_PARAM_SOIL_MOISTURE, 
-        esp_rmaker_int(10), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
-    if (soil_moisture_param) 
-    {
-        esp_rmaker_param_add_ui_type(soil_moisture_param, ESP_RMAKER_UI_SLIDER);
-        esp_rmaker_param_add_bounds(soil_moisture_param, esp_rmaker_int(0), esp_rmaker_int(100), esp_rmaker_int(1));
-        esp_rmaker_device_add_param(soil_moisture_sensor_device, soil_moisture_param);
-    }
+    soil_monitor.device = esp_rmaker_device_create("Soil Moisture Sensor", ESP_RMAKER_DEVICE_SOIL_MOISTURE, NULL);
+    esp_rmaker_device_add_cb(soil_monitor.device, write_cb, NULL);
+
     // Add the standard name parameter (type: esp.param.name), which allows setting a persistent,  user friendly custom name from the phone apps. All devices are recommended to have this parameter.
-    esp_rmaker_device_add_param(soil_moisture_sensor_device, esp_rmaker_name_param_create(ESP_RMAKER_DEF_NAME_PARAM, "Soil Moisture Sensor"));
+    esp_rmaker_device_add_param(soil_monitor.device, esp_rmaker_name_param_create(ESP_RMAKER_DEF_NAME_PARAM, "Soil Moisture Sensor"));
+
+    // Add moisture parameters to the device(This is a custom parameter type based on number of channels)
+    add_soil_moisture_params(&soil_monitor);
+
     // Add this soil moisture sensor device to the node
-    esp_rmaker_node_add_device(node, soil_moisture_sensor_device);
+    esp_rmaker_node_add_device(node, soil_monitor.device);
     
 
     /* Enable OTA */
