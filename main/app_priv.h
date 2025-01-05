@@ -23,3 +23,4 @@ bool app_driver_get_state(void);
 
 esp_err_t temperature_sensor_init(void);
 esp_err_t humidity_sensor_init(void);
+esp_err_t soil_moisture_sensor_init(void);

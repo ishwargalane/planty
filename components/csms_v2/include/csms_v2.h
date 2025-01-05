@@ -21,6 +21,9 @@
 #define SAMPLE_COUNT    10             // Number of samples for smoothing
 #define NUM_CHANNELS    16             // Number of channels on the multiplexer
 #define OUTLIER_THRESHOLD 500          // Define the acceptable deviation threshold
+#define CSMSV2_REPORTING_PERIOD            60
 
 void set_average_soil_moisture_data(void *pvParameters);
 void display_average_soil_moisture_data(void *pvParameters);
+// Function to retrive the average soil moisture data stored in the global variable adc_data
+const int* get_average_soil_moisture_data();

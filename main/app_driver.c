@@ -136,4 +136,6 @@ void app_driver_init()
     xTaskCreate(set_average_soil_moisture_data, "set_average_soil_moisture_data", 4096, NULL, 5, NULL);
     /* Create a task to display the soil moisture data */
     xTaskCreate(display_average_soil_moisture_data, "display_average_soil_moisture_data", 4096, NULL, 5, NULL);
+    /* Create a task to update the temperature sensor data */
+    soil_moisture_sensor_init();
 }

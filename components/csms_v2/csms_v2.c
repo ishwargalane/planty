@@ -20,6 +20,11 @@ const static char *TAG = "CSMC_V2";
 static bool example_adc_calibration_init(adc_unit_t unit, adc_channel_t channel, adc_atten_t atten, adc_cali_handle_t *out_handle);
 static void example_adc_calibration_deinit(adc_cali_handle_t handle);
 
+// Function to retrive the average soil moisture data stored in the global variable adc_data
+const int* get_average_soil_moisture_data() {
+    return adc_data; // Return the array's pointer
+}
+
 // Function to select the multiplexer channel
 void select_mux_channel(uint8_t channel) {
     gpio_set_level(MUX_S0_PIN, channel & 0x01);
