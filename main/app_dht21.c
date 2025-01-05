@@ -15,12 +15,13 @@ static void update_temperature_sensor_data(TimerHandle_t handle)
 {
     ESP_LOGI(TAG, "Updating Temp: %.1fC\n", get_average_temperature());
     esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_type(temp_sensor_device, ESP_RMAKER_PARAM_TEMPERATURE),
-                esp_rmaker_float(get_average_temperature()));
+            // _by_type returns the first parameter of the given type. If you have multiple parameters of the same type, you should use _by_name. 'temperature' is the name of the parameter, in case you want to use _by_name
+            esp_rmaker_device_get_param_by_type(temp_sensor_device, ESP_RMAKER_PARAM_TEMPERATURE), 
+            esp_rmaker_float(get_average_temperature()));
     ESP_LOGI(TAG, "Updating Humidity: %.1f%%\n", get_average_humidity());
     esp_rmaker_param_update_and_report(
-                esp_rmaker_device_get_param_by_name(temp_sensor_device, "Humidity"),    // 'Humidity' is the name of the parameter
-                esp_rmaker_float(get_average_humidity()));
+            esp_rmaker_device_get_param_by_name(temp_sensor_device, "Humidity"),    // 'Humidity' is the name of the parameter
+            esp_rmaker_float(get_average_humidity()));
 }
 
 esp_err_t temperature_sensor_init(void)
