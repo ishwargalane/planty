@@ -15,6 +15,10 @@
 extern esp_rmaker_device_t *switch_device;
 extern esp_rmaker_device_t *temp_sensor_device;
 
+#define ESP_RMAKER_PARAM_HUMIDITY  "esp.param.humidity"
+#define ESP_RMAKER_DEVICE_SOIL_MOISTURE "esp.device.soil_moisture"
+#define ESP_RMAKER_PARAM_SOIL_MOISTURE "esp.param.soil_moisture"
+
 void app_driver_init(void);
 int app_driver_set_state(bool state);
 bool app_driver_get_state(void);

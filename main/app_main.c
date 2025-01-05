@@ -35,6 +35,7 @@
 static const char *TAG = "app_main";
 esp_rmaker_device_t *switch_device;
 esp_rmaker_device_t *temp_sensor_device;
+esp_rmaker_device_t *soil_moisture_sensor_device;
 
 /* Callback to handle commands received from the RainMaker cloud */
 static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_param_t *param,
@@ -222,10 +223,29 @@ void app_main()
 
     /* Create a Temperature Sensor device and add the relevant parameters to it */
     temp_sensor_device = esp_rmaker_temp_sensor_device_create("Temperature/Humidty", NULL, get_average_temperature());
-    esp_rmaker_param_t *h_param = esp_rmaker_param_create("Humidity", ESP_RMAKER_PARAM_TEMPERATURE, 
+    esp_rmaker_param_t *h_param = esp_rmaker_param_create("Humidity", ESP_RMAKER_PARAM_HUMIDITY, 
         esp_rmaker_float(get_average_humidity()), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
     esp_rmaker_device_add_param( temp_sensor_device, h_param);
     esp_rmaker_node_add_device(node, temp_sensor_device);
+
+    /* Create a Soil Moisture Sensor device and add the relevant parameters to it */
+    // Create a generic device to acomodate the soil moisture sensor readings with multiple parameters
+    soil_moisture_sensor_device = esp_rmaker_device_create("Soil Moisture Sensor", ESP_RMAKER_DEVICE_SOIL_MOISTURE, NULL);
+    esp_rmaker_device_add_cb(soil_moisture_sensor_device, write_cb, NULL);
+    // Add the standard parameter to read soil moisture with satutation slider UI type 
+    esp_rmaker_param_t *soil_moisture_param = esp_rmaker_param_create("Soil Moisture", ESP_RMAKER_PARAM_SOIL_MOISTURE, 
+        esp_rmaker_int(10), PROP_FLAG_READ | PROP_FLAG_TIME_SERIES);
+    if (soil_moisture_param) 
+    {
+        esp_rmaker_param_add_ui_type(soil_moisture_param, ESP_RMAKER_UI_SLIDER);
+        esp_rmaker_param_add_bounds(soil_moisture_param, esp_rmaker_int(0), esp_rmaker_int(100), esp_rmaker_int(1));
+        esp_rmaker_device_add_param(soil_moisture_sensor_device, soil_moisture_param);
+    }
+    // Add the standard name parameter (type: esp.param.name), which allows setting a persistent,  user friendly custom name from the phone apps. All devices are recommended to have this parameter.
+    esp_rmaker_device_add_param(soil_moisture_sensor_device, esp_rmaker_name_param_create(ESP_RMAKER_DEF_NAME_PARAM, "Soil Moisture Sensor"));
+    // Add this soil moisture sensor device to the node
+    esp_rmaker_node_add_device(node, soil_moisture_sensor_device);
+    
 
     /* Enable OTA */
     esp_rmaker_ota_enable_default();
