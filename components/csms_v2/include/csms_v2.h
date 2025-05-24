@@ -6,10 +6,10 @@
 #include "esp_adc/adc_cali_scheme.h"
 
 // Define GPIO pins for multiplexer control
-#define MUX_S0_PIN  GPIO_NUM_12
+#define MUX_S0_PIN  GPIO_NUM_15
 #define MUX_S1_PIN  GPIO_NUM_13
-#define MUX_S2_PIN  GPIO_NUM_14
-#define MUX_S3_PIN  GPIO_NUM_15
+#define MUX_S2_PIN  GPIO_NUM_12
+#define MUX_S3_PIN  GPIO_NUM_14
 
 /*---------------------------------------------------------------
     ADC General Macros

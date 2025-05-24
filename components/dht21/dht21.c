@@ -11,11 +11,12 @@ static float g_humidity = DEFAULT_HUMIDITY;
 static const char *TAG = "DHT_SENSOR";
 float get_average_temperature(void)
 {
-    return (int)(g_temperature + 0.5);
+    return ((int)(g_temperature * 100 + 0.5)) / 100.0;
 }
 float get_average_humidity(void)
 {
-    return (int)(g_humidity + 0.5);
+    return ((int)(g_temperature * 100 + 0.5)) / 100.0;
+    //return (int)(g_humidity + 0.5); //to round off to the nearest integer
 }
 
 void set_average_temperature_humidity(void *pvParameters)
