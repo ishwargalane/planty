@@ -1,6 +1,6 @@
 # ESP-Rainmaker Project Dev Container Setup
 
-This project is configured to use VS Code Dev Containers to provide a consistent development environment for ESP-Rainmaker projects.
+This project is configured to use VS Code Dev Containers to provide a consistent development environment for ESP-Rainmaker projects across Windows, macOS, and Linux.
 
 ## Prerequisites
 
@@ -16,36 +16,82 @@ This project is configured to use VS Code Dev Containers to provide a consistent
    - Press `F1` to open the Command Palette
    - Type "Remote-Containers: Reopen in Container" and select it
 
-The first time you open the project in a container, it will build the development environment, which may take several minutes.
+The first time you open the project in a container, it will build the development environment. This might take several minutes, but subsequent launches will be faster.
 
-## Building and Flashing
+## Platform-Specific Notes
 
-Once the container is running, you can use the integrated terminal in VS Code to build and flash the project:
+### Windows
 
-```bash
-# Build the project
-idf.py build
+1. **Serial Port Access:**
+   - In Docker Desktop, go to Settings > Resources > WSL Integration and ensure it's enabled
+   - When connecting your ESP32 device, note the COM port number (e.g., COM3)
+   - When using the Flash or Monitor tasks, enter the COM port when prompted (e.g., COM3)
 
-# Flash (replace /dev/ttyUSB0 with your device's port)
-idf.py -p /dev/ttyUSB0 flash
+2. **Building and Flashing:**
+   - All VS Code tasks work the same way on Windows
+   - Use the "List Serial Ports" task to identify available COM ports
+   - Windows may require additional USB drivers for your specific ESP32 development board
 
-# Monitor serial output
-idf.py -p /dev/ttyUSB0 monitor
+### macOS
 
-# Build, flash and monitor in one command
-idf.py -p /dev/ttyUSB0 flash monitor
-```
+1. **Serial Port Access:**
+   - Serial ports appear as `/dev/tty.usbserial-*` or `/dev/tty.SLAB_USBtoUART`
+   - When connecting your ESP32 device, use the "List Serial Ports" task to identify the correct port
+   - Docker on macOS may have limitations accessing USB devices directly; the tasks will fall back to using your local ESP-IDF installation
 
-## Debugging Hardware Connection
+2. **Building and Flashing:**
+   - If using Docker for flashing fails, the system will automatically use your local ESP-IDF installation
+   - Make sure ESP-IDF v5.4 is installed locally using the standard [ESP-IDF installation guide](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html)
 
-If you're having trouble with the USB connection to your ESP device:
+### Linux
 
-1. Make sure your device is connected to your computer
-2. For macOS, check the port with: `ls -l /dev/cu.*`
-3. For Linux, check with: `ls -l /dev/ttyUSB*`
-4. For Windows, check Device Manager under "Ports (COM & LPT)"
+1. **Serial Port Access:**
+   - Serial ports appear as `/dev/ttyUSB*` or `/dev/ttyACM*`
+   - You may need to add your user to the `dialout` group to access serial ports: `sudo usermod -a -G dialout $USER`
+   - Log out and log back in for the group change to take effect
 
-Use the appropriate port in your `idf.py` commands.
+2. **Building and Flashing:**
+   - All VS Code tasks work seamlessly on Linux
+   - Use the "List Serial Ports" task to identify available ports
+
+## VS Code Tasks
+
+This project includes the following VS Code tasks:
+
+- **Build**: Compile the project
+- **Flash**: Upload the firmware to the ESP32
+- **Monitor**: View the serial output from the device
+- **Flash and Monitor**: Flash and then immediately start monitoring
+- **Clean**: Remove all build artifacts
+- **Menuconfig**: Configure ESP-IDF parameters through a menu interface
+- **List Serial Ports**: Show available serial ports on your system
+
+To run any task:
+1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Palette
+2. Type "Tasks: Run Task" and select it
+3. Choose the task you want to run
+
+## Cross-Platform Development
+
+The configuration provided in this project makes it easy to share code between team members using different operating systems:
+
+1. All build settings are consistently applied across platforms
+2. Docker containers provide identical build environments regardless of the host OS
+3. When Docker cannot access serial devices (particularly on macOS), the system automatically falls back to local ESP-IDF installations
+4. Source code can be synced via Git without worrying about platform-specific issues
+
+When transferring the project to a new machine:
+1. Clone the repository
+2. Open in VS Code with Dev Containers extension
+3. Select "Reopen in Container"
+4. Use the provided tasks to build and flash
+
+## Troubleshooting
+
+- **Serial Port Not Found**: Use the "List Serial Ports" task to verify your device is connected and detected
+- **Build Errors**: Run the "Clean" task and try building again
+- **Docker Issues**: Ensure Docker Desktop is running before opening the project
+- **Flash Fails on macOS**: Make sure you have ESP-IDF v5.4 installed locally
 
 ## Project Structure
 
