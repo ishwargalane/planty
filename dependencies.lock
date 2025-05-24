@@ -2,7 +2,7 @@ dependencies:
   csms_v2:
     dependencies: []
     source:
-      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/csms_v2
+      path: /workspaces/planty/components/csms_v2
       type: local
     version: '*'
   dht21:
@@ -16,11 +16,11 @@ dependencies:
       path: components/esp_idf_lib_helpers
       version: 0.9.4
     source:
-      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/dht21
+      path: /workspaces/planty/components/dht21
       type: local
     version: '*'
   espressif/cbor:
-    component_hash: 440f4ee4504841cc9b4f3a8ef755776a612ac9dace355514c68b999868f990ff
+    component_hash: 742f5005032227c6edbaab15f3dd6d2010bf2f5997ea93bb313e4e629789b2e0
     dependencies:
     - name: idf
       require: private
@@ -28,7 +28,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 0.6.0~1
+    version: 0.6.0~2
   espressif/dht:
     component_hash: cd03877b11b895c7d2e6c2549276586a71d1fd0c83ddc6e1c6618c5758820987
     dependencies: []
@@ -49,7 +49,7 @@ dependencies:
     - name: idf
       version: '>=4.1'
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_diag_data_store
+      path: /opt/esp/rainmaker/components/esp-insights/components/esp_diag_data_store
       type: local
     version: 1.0.1
   espressif/esp_diagnostics:
@@ -60,7 +60,7 @@ dependencies:
       override_path: ../rmaker_common/
       version: ~1.4.0
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_diagnostics
+      path: /opt/esp/rainmaker/components/esp-insights/components/esp_diagnostics
       type: local
     version: 1.2.0
   espressif/esp_idf_lib_helpers:
@@ -89,7 +89,7 @@ dependencies:
       - if: idf_version >=5.0
       version: ~0.6
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_insights
+      path: /opt/esp/rainmaker/components/esp-insights/components/esp_insights
       type: local
     version: 1.2.0
   espressif/esp_rainmaker:
@@ -123,19 +123,19 @@ dependencies:
       - if: idf_version >= 5.1
       version: ~1.2.0
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp_rainmaker
+      path: /opt/esp/rainmaker/components/esp_rainmaker
       type: local
     version: 1.5.1
   espressif/esp_rcp_update:
     component_hash: c10afbd54a17f27eed880e61262b161656e6d36ad63376c307f9273e99d0abcd
     dependencies:
-    - name: idf
-      require: private
-      version: '>=5.0'
     - name: espressif/esp-serial-flasher
       registry_url: https://components.espressif.com
       require: private
       version: ~0.0.0
+    - name: idf
+      require: private
+      version: '>=5.0'
     source:
       registry_url: https://components.espressif.com/
       type: service
@@ -146,7 +146,7 @@ dependencies:
       override_path: ../rmaker_common/
       version: ~1.4.2
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp_schedule
+      path: /opt/esp/rainmaker/components/esp_schedule
       type: local
     version: 1.2.0
   espressif/esp_secure_cert_mgr:
@@ -162,7 +162,7 @@ dependencies:
   espressif/json_generator:
     dependencies: []
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/json_generator
+      path: /opt/esp/rainmaker/components/json_generator
       type: local
     version: 1.1.1
   espressif/json_parser:
@@ -172,11 +172,11 @@ dependencies:
       - if: idf_version >=5.0
       version: ~1.1
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/json_parser
+      path: /opt/esp/rainmaker/components/json_parser
       type: local
     version: 1.0.3
   espressif/mdns:
-    component_hash: f5267872ed0c810d1b281c41a567cace7b3a3695c0df9dff89f631e9ba426ed0
+    component_hash: 3ec0af5f6bce310512e90f482388d21cc7c0e99668172d2f895356165fc6f7c5
     dependencies:
     - name: idf
       require: private
@@ -184,9 +184,9 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.4.2
+    version: 1.8.2
   espressif/network_provisioning:
-    component_hash: 1c0f76f4a37c3f2101ae9735e9da901ef4469a07af9cc075fc8f08fee43281e4
+    component_hash: 21c45dd9cf570c12671e1678ddcfabe77471afa979bcff207a8478b45b58667a
     dependencies:
     - name: idf
       require: private
@@ -194,21 +194,21 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.0.3
+    version: 1.0.5
   espressif/rmaker_common:
     dependencies: []
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/rmaker_common
+      path: /opt/esp/rainmaker/components/esp-insights/components/rmaker_common
       type: local
     version: 1.4.6
   idf:
     source:
       type: idf
-    version: 5.3.2
+    version: 5.4.1
   jsmn:
     dependencies: []
     source:
-      path: /Users/ishwar/.espressif/esp-rainmaker/components/jsmn
+      path: /opt/esp/rainmaker/components/jsmn
       type: local
     version: 1.1.0
 direct_dependencies:
