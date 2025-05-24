@@ -1,0 +1,60 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py -p ${input:serialPort} flash",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Monitor",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py -p ${input:serialPort} monitor",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Flash and Monitor",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py -p ${input:serialPort} flash monitor",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py fullclean",
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Menuconfig",
+            "type": "shell",
+            "command": "source /opt/esp/idf/export.sh && idf.py menuconfig",
+            "group": "test",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "serialPort",
+            "type": "promptString",
+            "description": "Serial port (e.g., /dev/tty.usbserial-X or COM3)",
+            "default": "/dev/tty.usbserial-0001"
+        }
+    ]
+} 
