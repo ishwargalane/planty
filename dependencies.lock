@@ -2,7 +2,7 @@ dependencies:
   csms_v2:
     dependencies: []
     source:
-      path: /workspaces/planty/components/csms_v2
+      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/csms_v2
       type: local
     version: '*'
   dht21:
@@ -16,7 +16,7 @@ dependencies:
       path: components/esp_idf_lib_helpers
       version: 0.9.4
     source:
-      path: /workspaces/planty/components/dht21
+      path: /Users/ishwar/MicroControllers/ESP-Rainmaker-Projects/planty/components/dht21
       type: local
     version: '*'
   espressif/cbor:
@@ -49,7 +49,7 @@ dependencies:
     - name: idf
       version: '>=4.1'
     source:
-      path: /opt/esp/rainmaker/components/esp-insights/components/esp_diag_data_store
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_diag_data_store
       type: local
     version: 1.0.1
   espressif/esp_diagnostics:
@@ -60,7 +60,7 @@ dependencies:
       override_path: ../rmaker_common/
       version: ~1.4.0
     source:
-      path: /opt/esp/rainmaker/components/esp-insights/components/esp_diagnostics
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_diagnostics
       type: local
     version: 1.2.0
   espressif/esp_idf_lib_helpers:
@@ -89,7 +89,7 @@ dependencies:
       - if: idf_version >=5.0
       version: ~0.6
     source:
-      path: /opt/esp/rainmaker/components/esp-insights/components/esp_insights
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp-insights/components/esp_insights
       type: local
     version: 1.2.0
   espressif/esp_rainmaker:
@@ -123,7 +123,7 @@ dependencies:
       - if: idf_version >= 5.1
       version: ~1.2.0
     source:
-      path: /opt/esp/rainmaker/components/esp_rainmaker
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp_rainmaker
       type: local
     version: 1.5.1
   espressif/esp_rcp_update:
@@ -146,7 +146,7 @@ dependencies:
       override_path: ../rmaker_common/
       version: ~1.4.2
     source:
-      path: /opt/esp/rainmaker/components/esp_schedule
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/esp_schedule
       type: local
     version: 1.2.0
   espressif/esp_secure_cert_mgr:
@@ -162,7 +162,7 @@ dependencies:
   espressif/json_generator:
     dependencies: []
     source:
-      path: /opt/esp/rainmaker/components/json_generator
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/json_generator
       type: local
     version: 1.1.1
   espressif/json_parser:
@@ -172,7 +172,7 @@ dependencies:
       - if: idf_version >=5.0
       version: ~1.1
     source:
-      path: /opt/esp/rainmaker/components/json_parser
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/json_parser
       type: local
     version: 1.0.3
   espressif/mdns:
@@ -198,26 +198,23 @@ dependencies:
   espressif/rmaker_common:
     dependencies: []
     source:
-      path: /opt/esp/rainmaker/components/esp-insights/components/rmaker_common
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/rmaker_common
       type: local
     version: 1.4.6
   idf:
     source:
       type: idf
-    version: 5.4.1
+    version: 5.4.0
   jsmn:
     dependencies: []
     source:
-      path: /opt/esp/rainmaker/components/jsmn
+      path: /Users/ishwar/.espressif/esp-rainmaker/components/jsmn
       type: local
     version: 1.1.0
 direct_dependencies:
 - csms_v2
 - dht21
-- espressif/cbor
 - espressif/dht
-- espressif/esp_diag_data_store
-- espressif/esp_diagnostics
 - espressif/esp_idf_lib_helpers
 - espressif/esp_insights
 - espressif/esp_rainmaker
@@ -231,6 +228,6 @@ direct_dependencies:
 - espressif/network_provisioning
 - espressif/rmaker_common
 - idf
-manifest_hash: 0856fc22c499577a4ee5362d8355f3e1c9a99554eccc08a4fa72cffb47acb5f6
+manifest_hash: 76623fd857b6a95a27452c8548a963132ff2223f344c1d14a0ffe6130836ad6a
 target: esp32
 version: 2.0.0
