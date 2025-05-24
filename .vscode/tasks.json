@@ -47,6 +47,13 @@
             "command": "if [ -f \"/opt/esp/idf/export.sh\" ]; then source /opt/esp/idf/export.sh && idf.py menuconfig; else docker run --rm -it -v \"$(pwd)\":/workspaces/planty -v \"$HOME/.espressif/esp-rainmaker\":/opt/esp/rainmaker -e RMAKER_PATH=/opt/esp/rainmaker -w /workspaces/planty esp-rainmaker-build /bin/bash -c \"source /opt/esp/idf/export.sh && idf.py menuconfig\"; fi",
             "group": "test",
             "problemMatcher": []
+        },
+        {
+            "label": "List Serial Ports",
+            "type": "shell",
+            "command": "if [[ \"$(uname)\" == \"Darwin\" ]]; then echo \"Available Serial Ports:\" && ls -l /dev/tty.* | grep -i usb || echo \"No USB serial devices found\"; elif [[ \"$(uname)\" == \"Linux\" ]]; then echo \"Available Serial Ports:\" && ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null || echo \"No USB serial devices found\"; else echo \"Available Serial Ports:\" && powershell -Command \"Get-WmiObject Win32_SerialPort | Select-Object DeviceID, Description\"; fi",
+            "group": "test",
+            "problemMatcher": []
         }
     ],
     "inputs": [
