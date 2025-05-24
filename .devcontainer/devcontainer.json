@@ -1,0 +1,40 @@
+{
+    "name": "ESP-Rainmaker Development",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {
+            "VARIANT": "ubuntu-22.04"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash",
+                "idf.espIdfPath": "/opt/esp/idf",
+                "idf.customExtraPaths": "/opt/esp/tools/tools/xtensa-esp-elf-gdb:/opt/esp/tools/tools/riscv32-esp-elf-gdb:/opt/esp/tools/tools/xtensa-esp32-elf/esp-13.2.0_20230928/xtensa-esp32-elf/bin:/opt/esp/tools/tools/xtensa-esp32s2-elf/esp-13.2.0_20230928/xtensa-esp32s2-elf/bin:/opt/esp/tools/tools/xtensa-esp32s3-elf/esp-13.2.0_20230928/xtensa-esp32s3-elf/bin:/opt/esp/tools/tools/riscv32-esp-elf/esp-13.2.0_20230928/riscv32-esp-elf/bin:/opt/esp/tools/tools/esp32ulp-elf/2.35_20220830/esp32ulp-elf/bin:/opt/esp/tools/tools/openocd-esp32/v0.12.0-esp32-20230921/openocd-esp32/bin",
+                "idf.customExtraVars": {
+                    "RMAKER_PATH": "/opt/esp/rainmaker"
+                },
+                "idf.pythonBinPath": "/home/esp/.espressif/python_env/idf5.4_py3.10_env/bin/python",
+                "idf.toolsPath": "/home/esp/.espressif",
+                "idf.port": "/dev/ttyUSB0",
+                "C_Cpp.intelliSenseEngine": "default"
+            },
+            "extensions": [
+                "ms-vscode.cpptools",
+                "espressif.esp-idf-extension"
+            ]
+        }
+    },
+    "mounts": [
+        "source=${localWorkspaceFolder},target=/workspaces/planty,type=bind",
+        "source=${localEnv:HOME}/.espressif/esp-rainmaker,target=/opt/esp/rainmaker,type=bind,consistency=cached"
+    ],
+    "runArgs": [
+        "--privileged"
+    ],
+    "forwardPorts": [3333],
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/planty,type=bind,consistency=cached",
+    "workspaceFolder": "/workspaces/planty",
+    "postCreateCommand": "/workspaces/planty/.devcontainer/post-create.sh"
+} 
