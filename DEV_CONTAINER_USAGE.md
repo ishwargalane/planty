@@ -65,11 +65,25 @@ This project includes the following VS Code tasks:
 - **Clean**: Remove all build artifacts
 - **Menuconfig**: Configure ESP-IDF parameters through a menu interface
 - **List Serial Ports**: Show available serial ports on your system
+- **OTA Update**: Perform an Over-The-Air update of your device without needing a USB connection
 
 To run any task:
 1. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open the Command Palette
 2. Type "Tasks: Run Task" and select it
 3. Choose the task you want to run
+
+### Using OTA Updates
+
+The "OTA Update" task allows you to update your device wirelessly:
+
+1. Ensure your device is provisioned and connected to the ESP-Rainmaker cloud
+2. Run the "OTA Update" task from VS Code
+3. If not installed, the ESP-Rainmaker CLI will be installed automatically
+4. You'll be prompted to log in to your ESP-Rainmaker account
+5. Enter your device ID when prompted (find this in the Rainmaker dashboard or using `rainmaker get-devices`)
+6. The firmware will be built and then deployed to your device over the air
+
+This eliminates the need to physically connect to your device for updates once it's been initially provisioned.
 
 ## Cross-Platform Development
 
@@ -92,6 +106,7 @@ When transferring the project to a new machine:
 - **Build Errors**: Run the "Clean" task and try building again
 - **Docker Issues**: Ensure Docker Desktop is running before opening the project
 - **Flash Fails on macOS**: Make sure you have ESP-IDF v5.4 installed locally
+- **OTA Update Fails**: Ensure your device is connected to Wi-Fi and properly registered with ESP-Rainmaker
 
 ## Project Structure
 

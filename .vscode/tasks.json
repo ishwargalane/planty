@@ -54,6 +54,13 @@
             "command": "if [[ \"$(uname)\" == \"Darwin\" ]]; then echo \"Available Serial Ports:\" && ls -l /dev/tty.* | grep -i usb || echo \"No USB serial devices found\"; elif [[ \"$(uname)\" == \"Linux\" ]]; then echo \"Available Serial Ports:\" && ls -l /dev/ttyUSB* /dev/ttyACM* 2>/dev/null || echo \"No USB serial devices found\"; else echo \"Available Serial Ports:\" && powershell -Command \"Get-WmiObject Win32_SerialPort | Select-Object DeviceID, Description\"; fi",
             "group": "test",
             "problemMatcher": []
+        },
+        {
+            "label": "OTA Update",
+            "type": "shell",
+            "command": "if which rainmaker > /dev/null; then echo \"Building firmware...\" && idf.py build && echo \"Starting OTA update...\" && rainmaker login && rainmaker ota-upgrade --file build/planty.bin --devices ${input:deviceID}; else echo \"ESP-Rainmaker CLI not found. Installing...\" && pip install esp-rainmaker-cli && echo \"Building firmware...\" && idf.py build && echo \"Starting OTA update...\" && rainmaker login && rainmaker ota-upgrade --file build/planty.bin --devices ${input:deviceID}; fi",
+            "group": "test",
+            "problemMatcher": []
         }
     ],
     "inputs": [
@@ -62,6 +69,12 @@
             "type": "promptString",
             "description": "Serial port (e.g., /dev/tty.usbserial-X or COM3)",
             "default": "/dev/tty.usbserial-0001"
+        },
+        {
+            "id": "deviceID",
+            "type": "promptString",
+            "description": "Rainmaker Device ID (find this in the Rainmaker dashboard or using 'rainmaker get-devices')",
+            "default": ""
         }
     ]
 } 
