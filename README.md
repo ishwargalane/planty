@@ -21,6 +21,18 @@ The easiest way to build and flash is using the built-in VS Code tasks:
 2. Type "Tasks: Run Task" and select it
 3. Choose "Build" to compile or "Flash" to upload to your device
 
+### Over-The-Air (OTA) Updates
+
+This project supports OTA updates through ESP-Rainmaker:
+
+1. Initially flash your device using USB (only needed once)
+2. Provision the device with the ESP-Rainmaker mobile app
+3. For subsequent updates, use the "OTA Update" VS Code task
+4. Enter your device ID when prompted
+5. The new firmware will be deployed wirelessly
+
+This eliminates the need to physically connect to your device for each update.
+
 ### Using ESP-IDF Commands
 
 Alternatively, follow the ESP RainMaker Documentation [Get Started](https://rainmaker.espressif.com/docs/get-started.html) section to build and flash this firmware manually.
