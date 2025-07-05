@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.5)
 if(DEFINED ENV{RMAKER_PATH})
   set(RMAKER_PATH $ENV{RMAKER_PATH})
 else()
-  set(RMAKER_PATH $ENV{HOME}/.espressif/esp-rainmaker)
+  set(RMAKER_PATH /opt/esp/rainmaker)
 endif(DEFINED ENV{RMAKER_PATH})
 
 # Add RainMaker components and other common application components

@@ -22,7 +22,7 @@ dependencies:
   esp_schedule:
     dependencies: []
     source:
-      path: /root/.espressif/esp-rainmaker/components/esp_schedule
+      path: /opt/esp/rainmaker/components/esp_schedule
       type: local
     version: 1.2.0
   espressif/cbor:
@@ -61,19 +61,19 @@ dependencies:
       type: service
     version: 1.0.2
   espressif/esp_diagnostics:
-    component_hash: 5ea8e8da8217ed9ed778db3973139e726e17cd27ef5cf6429c787d19226c79f3
+    component_hash: b6ae5ae71264612d3742ef91e3f44092ae98060feecddd70e04f26bdc172cded
     dependencies:
-    - name: idf
-      require: private
-      version: '>=4.1'
     - name: espressif/rmaker_common
       registry_url: https://components.espressif.com
       require: private
       version: ~1.4.0
+    - name: idf
+      require: private
+      version: '>=4.1'
     source:
       registry_url: https://components.espressif.com
       type: service
-    version: 1.2.1
+    version: 1.2.3
   espressif/esp_idf_lib_helpers:
     component_hash: 05fde869e4a2c9efcded9b544fb31d418d98ae3c31e265a7d155462d97744464
     dependencies: []
@@ -83,7 +83,7 @@ dependencies:
       type: git
     version: e8fff9a2d638ce08716b69fa66382bbfa0bfffdf
   espressif/esp_insights:
-    component_hash: cde250f24eca6825aed5060abb57183f58e2e0fd7dc12e69f83e9272ac63520a
+    component_hash: b9e0863e821a4a18d5805a969a0240e1c82c59aff13b9350568fe7892cef84b3
     dependencies:
     - name: espressif/cbor
       registry_url: https://components.espressif.com
@@ -98,7 +98,7 @@ dependencies:
     - name: espressif/esp_diagnostics
       registry_url: https://components.espressif.com
       require: private
-      version: 1.2.1
+      version: '>=1.2.3'
     - name: espressif/rmaker_common
       registry_url: https://components.espressif.com
       require: private
@@ -109,7 +109,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.2.4
+    version: 1.2.7
   espressif/esp_rainmaker:
     dependencies:
     - name: espressif/mdns
@@ -137,7 +137,7 @@ dependencies:
       - if: idf_version >= 5.1
       version: ~1.2.0
     source:
-      path: /root/.espressif/esp-rainmaker/components/esp_rainmaker
+      path: /opt/esp/rainmaker/components/esp_rainmaker
       type: local
     version: 1.5.5
   espressif/esp_rcp_update:
@@ -222,20 +222,20 @@ dependencies:
       type: service
     version: 0.1.0~2
   espressif/rmaker_common:
-    component_hash: a3a1df881278d0351fc850b77792fe8a196ddd6dcacbea203d606329cc6a0239
+    component_hash: f1208cd1951f9308fd838d7af12de3522206cc77079f268629cd74bf9c6daea7
     dependencies: []
     source:
       registry_url: https://components.espressif.com/
       type: service
-    version: 1.4.6
+    version: 1.4.11
   idf:
     source:
       type: idf
-    version: 5.5.0
+    version: 5.4.1
   rmaker_common:
     dependencies: []
     source:
-      path: /root/.espressif/esp-rainmaker/components/rmaker_common
+      path: /opt/esp/rainmaker/components/rmaker_common
       type: local
     version: 1.4.6
 direct_dependencies:
