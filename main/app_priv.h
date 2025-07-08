@@ -24,10 +24,13 @@ typedef struct {
 #define ESP_RMAKER_PARAM_HUMIDITY  "esp.param.humidity"
 #define ESP_RMAKER_DEVICE_SOIL_MOISTURE "esp.device.soil_moisture"
 #define ESP_RMAKER_PARAM_SOIL_MOISTURE "esp.param.soil_moisture"
+#define ESP_RMAKER_PARAM_SWITCH_OFF_INTERVAL "Switch Off Interval"
 
 void app_driver_init(void);
 int app_driver_set_state(bool state);
 bool app_driver_get_state(void);
+void app_driver_set_switch_off_interval(uint32_t interval_seconds);
+uint32_t app_driver_get_switch_off_interval(void);
 
 esp_err_t temperature_sensor_init(void);
 esp_err_t soil_moisture_sensor_init(void);

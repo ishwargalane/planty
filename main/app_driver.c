@@ -31,6 +31,9 @@
 #define OUTPUT_GPIO    CONFIG_ESP32_OUTPUT_GPIO
 static bool g_power_state = DEFAULT_POWER;
 
+/* Configurable switch-off interval (default 10 seconds) */
+static uint32_t switch_off_interval = 10;
+
 /* These values correspoind to H,S,V = 120,100,10 */
 #define DEFAULT_RED     0
 #define DEFAULT_GREEN   25
@@ -84,8 +87,19 @@ bool app_driver_get_state(void)
     return g_power_state;
 }
 
+void app_driver_set_switch_off_interval(uint32_t interval_seconds)
+{
+    switch_off_interval = interval_seconds;
+    ESP_LOGI(TAG, "Switch off interval updated to %lu seconds", interval_seconds);
+}
+
+uint32_t app_driver_get_switch_off_interval(void)
+{
+    return switch_off_interval;
+}
+
 /* 
-This is to switch off the water supply after a set interval. The interval is set to 10 seconds.
+This is to switch off the water supply after a set interval. The interval is configurable from the app.
 This is to avoid the water supply being on for a long time.
 */
 void turnOffSwitchAfterSetInterval(void *pvParameters)
@@ -94,12 +108,13 @@ void turnOffSwitchAfterSetInterval(void *pvParameters)
     {
         if (app_driver_get_state())
         {   
-            vTaskDelay(10000 / portTICK_PERIOD_MS);    
+            /* Use configurable interval instead of hardcoded value */
+            vTaskDelay((switch_off_interval * 1000) / portTICK_PERIOD_MS);    
             app_driver_set_state(false);
             esp_rmaker_param_update_and_report(
                 esp_rmaker_device_get_param_by_name(switch_device, ESP_RMAKER_DEF_POWER_NAME),
                 esp_rmaker_bool(false));
-            ESP_LOGI(TAG, "Switch turned off after set interval of %d seconds", BUTTON_SWITCH_OFF_INTERVAL);
+            ESP_LOGI(TAG, "Switch turned off after set interval of %lu seconds", switch_off_interval);
         }
         vTaskDelay(5000 / portTICK_PERIOD_MS);
     }
