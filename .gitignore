@@ -29,14 +29,50 @@
 build/
 #sdkconfig
 sdkconfig.old
+sdkconfig.backup
 
-# IDF specific files
+# ESP-IDF managed components (auto-downloaded dependencies)
+managed_components/
+dependencies.lock
+
+# ESP-IDF specific files
 *.bin
 *.elf
 *.map
 *.log
+*.component_hash
+flash_args
 
 # Python virtual environment
 venv/
 __pycache__/
 *.pyc
+
+# IDE/Editor specific files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/c_cpp_properties.json
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk

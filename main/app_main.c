@@ -56,6 +56,11 @@ static esp_err_t write_cb(const esp_rmaker_device_t *device, const esp_rmaker_pa
                 esp_rmaker_param_get_name(param));
         app_driver_set_state(val.val.b);
         esp_rmaker_param_update(param, val);
+    } else if (strcmp(esp_rmaker_param_get_name(param), ESP_RMAKER_PARAM_SWITCH_OFF_INTERVAL) == 0) {
+        ESP_LOGI(TAG, "Received switch off interval = %d seconds for %s",
+                val.val.i, esp_rmaker_device_get_name(device));
+        app_driver_set_switch_off_interval(val.val.i);
+        esp_rmaker_param_update(param, val);
     }
     return ESP_OK;
 }
@@ -223,6 +228,22 @@ void app_main()
      * home screen of the phone apps.
      */
     esp_rmaker_device_assign_primary_param(switch_device, power_param);
+
+    /* Add switch off interval parameter with slider UI */
+    esp_rmaker_param_t *interval_param = esp_rmaker_param_create(
+        ESP_RMAKER_PARAM_SWITCH_OFF_INTERVAL, 
+        "esp.param.range",  // Use range type for integer input
+        esp_rmaker_int(app_driver_get_switch_off_interval()), // Get current default
+        PROP_FLAG_READ | PROP_FLAG_WRITE
+    );
+    
+    /* Set bounds for the interval (1 to 300 seconds) */
+    esp_rmaker_param_add_bounds(interval_param, esp_rmaker_int(1), esp_rmaker_int(300), esp_rmaker_int(1));
+    
+    /* Add UI type for better user experience */
+    esp_rmaker_param_add_ui_type(interval_param, ESP_RMAKER_UI_SLIDER);
+    
+    esp_rmaker_device_add_param(switch_device, interval_param);
 
     /* Add this switch device to the node */
     esp_rmaker_node_add_device(node, switch_device);
